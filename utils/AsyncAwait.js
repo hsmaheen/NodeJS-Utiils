@@ -1,3 +1,4 @@
+//Async and Await
 const sleep = m => new Promise(r => setTimeout(r, m));
 
 const addAysnc = async (a, b) => {
@@ -11,21 +12,6 @@ const results = async params => {
   console.log(res);
 };
 
-const addCallBack = (a, b) => {
-  console.log('Callback is called');
-  console.log(`params are ${a} & ${b}`);
-  return a + b;
-};
-
-const addAsyncCallback = (a, b, callback) => {
-  setTimeout(() => {
-    callback(a, b);
-  }, 1000);
-};
-
-addAsyncCallback(9, 10, addCallBack);
-
-
 results()
   .then(() => {
     console.log('done');
@@ -33,3 +19,27 @@ results()
   .catch(err => {
     console.log(err);
   });
+
+//Callback
+const addCallBack = (a, b) => {
+  console.log('Callback is called');
+  console.log(`params are ${a} & ${b}`);
+  return a + b;
+};
+
+const addAsyncCallback = (a, b, timeout, callback) => {
+  setTimeout(() => {
+    console.log('Inside set timeout');
+    callback(a, b);
+  }, timeout);
+};
+
+addAsyncCallback(9, 10, 2000, addCallBack);
+
+//Normal function
+
+addAsyncCallback(4, 5, 100, (a, b) => {
+  console.log('Executed using inline function');
+  const sum = a + b;
+  console.log('The sum is', sum);
+});
